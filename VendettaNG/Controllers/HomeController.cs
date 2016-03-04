@@ -13,7 +13,11 @@ namespace VendettaNG.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-
+            servicio.ListarUsuarios();
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "VisionGlobal");
+            }
             return View();
         }
 

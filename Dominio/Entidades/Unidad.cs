@@ -2,13 +2,13 @@
 
 namespace Dominio.Entidades
 {
-    public class Recurso : IIdentificable
+    public abstract class Unidad : IIdentificable
     {
         [Key]
         public int Id { get; set; }
 
-        public virtual Material Material { get; set; }
-
+        public virtual string Nombre { get; set; }
         public virtual Edificio Edificio { get; set; }
+        public abstract void Ejecutar();
     }
 }

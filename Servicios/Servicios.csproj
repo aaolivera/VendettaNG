@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Conversiones\IConversor.cs" />
     <Compile Include="Conversiones\Impl\ConversorAutoMapper.cs" />
+    <Compile Include="Conversiones\Impl\Perfiles\EdificioMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\UsuarioMappingProfile.cs" />
     <Compile Include="Impl\ServicioComandos.cs" />
     <Compile Include="Impl\ServicioRepositorio.cs" />

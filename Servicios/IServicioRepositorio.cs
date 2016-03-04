@@ -14,7 +14,7 @@ namespace Servicios
         List<UsuarioDto> ListarUsuarios();
 
         [OperationContract]
-        UsuarioDto ObtenerUsuario(int id);
+        UsuarioDto ObtenerUsuario(string name);
         
     }
 }

@@ -51,7 +51,7 @@ namespace VendettaNG.ServicioHub
 
             if (Context.User.Identity.IsAuthenticated)
             {
-                var usuario = _servicio.ObtenerUsuario(WebSecurity.CurrentUserId);
+                var usuario = _servicio.ObtenerUsuario(Context.User.Identity.Name);
 
 
                 if (usuario != null)
@@ -59,14 +59,14 @@ namespace VendettaNG.ServicioHub
                     //Para recibir Mensajes privados
                     Groups.Add(Context.ConnectionId, TipoMensaje.Privado + usuario.NombreUsuario);
                     //Para recibir mensajs semi publicos
-                    foreach (var amigo in usuario.Amigos)
-                    {
-                        Groups.Add(Context.ConnectionId, TipoMensaje.Amigos + amigo);
-                    }
-                    foreach (var equipo in usuario.Equipos)
-                    {
-                        Groups.Add(Context.ConnectionId, TipoMensaje.Equipo + equipo);
-                    }
+                    //foreach (var amigo in usuario.Amigos)
+                    //{
+                    //    Groups.Add(Context.ConnectionId, TipoMensaje.Amigos + amigo);
+                    //}
+                    //foreach (var equipo in usuario.Equipos)
+                    //{
+                    //    Groups.Add(Context.ConnectionId, TipoMensaje.Equipo + equipo);
+                    //}
                 }
             }
             return base.OnConnected();

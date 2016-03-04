@@ -12,8 +12,6 @@ namespace Dominio.Dto
         //[StringLength(40, ErrorMessageResourceType = typeof(Textos), ErrorMessageResourceName = "Error_ExcedeLargoMaximo")]
         public string NombreUsuario { get; set; }
         //[StringLength(40, ErrorMessageResourceType = typeof(Textos), ErrorMessageResourceName = "Error_ExcedeLargoMaximo")]
-        public List<string> Amigos { get; set; }
-
-        public List<string> Equipos { get; set; }
+        public List<EdificioDto> Edificios { get; set; }
     }
 }

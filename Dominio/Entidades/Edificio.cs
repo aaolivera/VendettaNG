@@ -14,6 +14,8 @@ namespace Dominio.Entidades
         public virtual ICollection<Habitacion> Habitaciones { get; set; }
         [InverseProperty("Edificio")]
         public virtual ICollection<Recurso> Recursos { get; set; }
+        [InverseProperty("Edificio")]
+        public virtual ICollection<Unidad> Unidad { get; set; }
 
         public void Ejecutar() { }
     }

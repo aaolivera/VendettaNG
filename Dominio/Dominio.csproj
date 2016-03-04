@@ -57,7 +57,11 @@
     <Compile Include="Consultas\ListaPaginada.cs" />
     <Compile Include="Consultas\Paginacion.cs" />
     <Compile Include="Dto\MensajeDto.cs" />
+    <Compile Include="Dto\EdificioDto.cs" />
     <Compile Include="Dto\UsuarioDto.cs" />
+    <Compile Include="Entidades\Habitacion1.cs" />
+    <Compile Include="Entidades\Unidad1.cs" />
+    <Compile Include="Entidades\Unidad.cs" />
     <Compile Include="Entidades\Material.cs" />
     <Compile Include="Entidades\Recurso.cs" />
     <Compile Include="Entidades\Amistad.cs" />
