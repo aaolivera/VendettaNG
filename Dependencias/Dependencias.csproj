@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServidorModule.cs" />
+    <Compile Include="ServiciosWebNinjectModule.cs" />
     <Compile Include="WebNinjectModule.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -63,9 +63,12 @@
     <Compile Include="Conversiones\Impl\Perfiles\EdificioMappingProfile.cs" />
     <Compile Include="Conversiones\Impl\Perfiles\UsuarioMappingProfile.cs" />
     <Compile Include="Impl\ServicioComandos.cs" />
+    <Compile Include="Impl\Servidor.cs" />
     <Compile Include="Impl\ServicioRepositorio.cs" />
     <Compile Include="IServicioComandos.cs" />
+    <Compile Include="IServidor.cs" />
     <Compile Include="IServicioRepositorio.cs" />
+    <Compile Include="Models\Mundo.cs" />
     <Compile Include="Procesamiento\IProcesadorComando.cs" />
     <Compile Include="Procesamiento\ProcesadorComando.cs" />
     <Compile Include="Procesamiento\ProcesadorCrear.cs" />
