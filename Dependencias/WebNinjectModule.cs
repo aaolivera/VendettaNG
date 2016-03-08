@@ -6,6 +6,7 @@ using Servicios;
 using Servicios.Conversiones;
 using Servicios.Conversiones.Impl;
 using Servicios.Impl;
+using Dependencias.Extensiones;
 
 namespace Dependencias
 {
@@ -21,12 +22,10 @@ namespace Dependencias
             */
 
             // Comunicacion Directa 
-            Bind<DbContext>().To<DbContexto>().InRequestScope();
-            Bind<IRepositorio>().To<RepositorioEF>().InRequestScope();
+            this.BindChannelFactory<IServicioRepositorio>("ServicioRepositorio");
+            this.BindChannelFactory<IServicioComandos>("ServicioComandos");
+            this.BindChannelFactory<IServidor>("Servidor");
 
-            Bind<IConversor>().To<ConversorAutoMapper>().InSingletonScope();
-            Bind<IServicioRepositorio>().To<ServicioRepositorio>().InRequestScope();
-            Bind<IServicioComandos>().To<ServicioComandos>().InSingletonScope();
             // Fin comunicacion directa
 
         }
