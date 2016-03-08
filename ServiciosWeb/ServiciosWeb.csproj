@@ -98,7 +98,11 @@
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Log4NetConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <None Include="log4net.config">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -134,6 +138,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Servidor.svc" />
+    <Content Include="ServicioComandos.svc" />
+    <Content Include="ServicioRepositorio.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

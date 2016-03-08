@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="Servicios.Impl.Servidor" Factory="Ninject.Extensions.Wcf.NinjectServiceHostFactory" %>
