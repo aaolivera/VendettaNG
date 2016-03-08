@@ -2,12 +2,11 @@
 
 namespace Dominio.Entidades
 {
-    public class ObjetoEjecutable : IIdentificable
+    public abstract class ObjetoEjecutable : IIdentificable
     {
         [Key]
         public virtual int Id { get; set; }
         public virtual string Nombre { get; set; }
-
-        public virtual void Ejecutar() { }
+        public abstract void Ejecutar();
     }
 }

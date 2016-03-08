@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using Ninject.Extensions.Logging;
 using System.ServiceModel;
+using System.Collections.Generic;
+using System;
+using Dominio.Enum;
 
 namespace Servicios.Impl
 {
@@ -54,6 +57,7 @@ namespace Servicios.Impl
         }
         public bool Stop()
         {
+            repositorio.GuardarCambios();
             ts?.Cancel();
             return true;
         }
@@ -61,6 +65,41 @@ namespace Servicios.Impl
         public bool AregarObjetoEjecutable(int id)
         {
             return mundo.AregarObjetoEjecutable(repositorio.Obtener<ObjetoEjecutable>(id));
+        }
+
+        public void Inicializar()
+        {
+            if (!repositorio.Existe<Usuario>(x => x.Id == 1))
+            {
+                repositorio.Agregar<Usuario>(new Usuario { NombreUsuario = "a" });
+                repositorio.GuardarCambios();
+            }
+            if (!repositorio.Existe<Edificio>(x => x.Id == 1))
+            {
+                repositorio.Agregar<Edificio>(new Edificio { Nombre = "E", Usuario = repositorio.Obtener<Usuario>(1) });
+                repositorio.GuardarCambios();
+            }
+
+            if (!repositorio.Existe<FabricaDeMunicion>(x => x.Id == 2))
+            {
+                repositorio.Agregar<FabricaDeMunicion>(new FabricaDeMunicion { Nombre = "F", Edificio = repositorio.Obtener<Edificio>(1) });
+                repositorio.GuardarCambios();
+            }
+            if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 3))
+            {
+                repositorio.Agregar<DepositoDeMunicion>(new DepositoDeMunicion { Nombre = "D",Capacidad = 10000, Edificio = repositorio.Obtener<Edificio>(1) });
+                repositorio.GuardarCambios();
+            }
+            if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 4))
+            {
+                repositorio.Agregar<CampoDeEntrenamiento>(new CampoDeEntrenamiento {
+                    Nombre = "C",
+                    Edificio = repositorio.Obtener<Edificio>(1),
+                    UnidadesEnCola = new List<UnidadPendiente>() { new UnidadPendiente { TiempoRestante = new TimeSpan(10), Unidad = new Unidad {Cantidad = 10 , Especializacion = Especializacion.Mercenario } } }
+                
+                });
+                repositorio.GuardarCambios();
+            }
         }
     }
 }
