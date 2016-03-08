@@ -1,47 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Dominio.Consultas;
-using Dominio.Dto;
+﻿using System.Linq;
 using Dominio.Entidades;
 using Repositorio;
 using Servicios.Conversiones;
 using Servicios.Models;
 using System.Threading.Tasks;
 using System.Threading;
+using Ninject.Extensions.Logging;
+using System.ServiceModel;
 
 namespace Servicios.Impl
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class Servidor : IServidor
     {
         private readonly IRepositorio repositorio;
         private readonly IConversor conversor;
         private readonly Mundo mundo;
-        private bool Started;
+        private readonly ILogger log;
+        private CancellationTokenSource ts;
 
-        public Servidor(IRepositorio repositorio, IConversor conversor)
+        public Servidor(IRepositorio repositorio, IConversor conversor, ILogger log)
         {
             this.repositorio = repositorio;
             this.conversor = conversor;
-            mundo = Mundo.ObtenerMundo(repositorio);
+            this.log = log;
+            var objetos = repositorio.Listar<ObjetoEjecutable>().ToList();
+            mundo = Mundo.ObtenerMundo(objetos);
         }
 
-        public void Start()
+        public bool Start()
         {
-            Started = true;
-            Task.Run(() => {
-                while (Started)
-                {
-                    mundo.Ejecutar();
-                    Thread.Sleep(1000);
-                }
-            });
+            if(ts == null || ts.IsCancellationRequested) {
+                ts = new CancellationTokenSource();
+                var ct = ts.Token;
+
+                Task.Run(() => {
+                    log.Debug("Iniciando Servidor");
+                    while (true)
+                    {
+                        if (ct.IsCancellationRequested)
+                        {
+                            log.Debug("Deteniendo Servidor");
+                            break;
+                        }
+                        mundo.Ejecutar();
+                        Thread.Sleep(10000);
+                    }
+
+                }, ct);
+                return true;
+            }
+            return false;
         }
-        public void Stop()
+        public bool Stop()
         {
-            Started = false;
+            ts?.Cancel();
+            return true;
         }
 
+        public bool AregarObjetoEjecutable(int id)
+        {
+            return mundo.AregarObjetoEjecutable(repositorio.Obtener<ObjetoEjecutable>(id));
+        }
     }
 }

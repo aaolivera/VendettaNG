@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using log4net;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Entidades
 {
-    public class Edificio : IIdentificable
+    public class Edificio : ObjetoEjecutable
     {
-        [Key]
-        public virtual int Id { get; set; }
-        public virtual string Nombre { get; set; }
         public virtual Usuario Usuario { get; set; }
         [InverseProperty("Edificio")]
         public virtual ICollection<Habitacion> Habitaciones { get; set; }
@@ -17,6 +14,9 @@ namespace Dominio.Entidades
         [InverseProperty("Edificio")]
         public virtual ICollection<Unidad> Unidad { get; set; }
 
-        public void Ejecutar() { }
+        public override void Ejecutar() {
+            var a = 1;
+
+        }
     }
 }

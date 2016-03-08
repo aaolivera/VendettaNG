@@ -7,9 +7,11 @@ namespace Servicios
     [ServiceContract(Namespace = "http://VendettaNG.com.ar")]
     public interface IServidor
     {
-        void Start();
-        void Stop();
-
-
+        [OperationContract]
+        bool Start();
+        [OperationContract]
+        bool Stop();
+        [OperationContract]
+        bool AregarObjetoEjecutable(int id);
     }
 }

@@ -3,12 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dominio.Entidades
 {
-    public abstract class Habitacion : IIdentificable
+    public abstract class Habitacion : ObjetoEjecutable
     {
-        [Key]
-        public virtual int Id { get; set; }
-        public virtual string Nombre { get; set; }
         public virtual Edificio Edificio { get; set; }
-        public abstract void Ejecutar();
     }
 }

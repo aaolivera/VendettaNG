@@ -7,7 +7,7 @@ using Servicios;
 using Servicios.Impl;
 using Servicios.Conversiones.Impl;
 
-namespace Molinos.Scato.Dependencias
+namespace Dependencias
 {
     public class ServiciosWebNinjectModule : NinjectModule
     {
@@ -20,7 +20,6 @@ namespace Molinos.Scato.Dependencias
 
             Bind<IServicioRepositorio, ServicioRepositorio>().To<ServicioRepositorio>().InScope(ctx => OperationContext.Current);
             Bind<IServicioComandos, ServicioComandos>().To<ServicioComandos>().InSingletonScope();
-            
         }
     }
 }

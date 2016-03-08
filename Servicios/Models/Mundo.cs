@@ -1,7 +1,5 @@
 ﻿using Dominio.Entidades;
-using Repositorio;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Servicios.Models
@@ -9,47 +7,35 @@ namespace Servicios.Models
     public class Mundo
     {
         private static Mundo mundo;
-        private IRepositorio repositorio;
-        private Mundo(IRepositorio repositorio)
+        private Mundo(List<ObjetoEjecutable> objetosEjecutables)
         {
-            this.repositorio = repositorio;
-            this.Edificios = repositorio.Listar<Edificio>().ToList();
-            this.Unidades = repositorio.Listar<Unidad>().ToList();
+            this.Objetos = objetosEjecutables;
         }
 
-        public static Mundo ObtenerMundo(IRepositorio repositorio)
+        public static Mundo ObtenerMundo(List<ObjetoEjecutable> objetosEjecutables)
         {
             if (mundo == null)
             {
-                mundo = new Mundo(repositorio);
-                
+                mundo = new Mundo(objetosEjecutables);                
             }
             return mundo;
         }
 
         public void Ejecutar()
         {
-            Edificios.ForEach(x => x.Ejecutar());
-            Unidades.ForEach(x => x.Ejecutar());
+            Objetos.ForEach(x => x.Ejecutar());
         }
 
-        public void AregarEdificio(int id)
+        public bool AregarObjetoEjecutable(ObjetoEjecutable objetosEjecutable)
         {
-            if(!Edificios.Any(x => x.Id == id))
+            if(!Objetos.Any(x => x.Id == objetosEjecutable?.Id))
             {
-                Edificios.Add(repositorio.Obtener<Edificio>(id));
+                Objetos.Add(objetosEjecutable);
+                return true;
             }
+            return false;
         }
 
-        public void AregarUnidad(int id)
-        {
-            if (!Unidades.Any(x => x.Id == id))
-            {
-                Unidades.Add(repositorio.Obtener<Unidad>(id));
-            }
-
-        }
-        private List<Edificio> Edificios { get; set; }
-        private List<Unidad> Unidades { get; set; }
+        private List<ObjetoEjecutable> Objetos { get; set; }
     }
 }
