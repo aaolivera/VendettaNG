@@ -47,7 +47,7 @@ namespace Servicios.Impl
                             break;
                         }
                         mundo.Ejecutar();
-                        Thread.Sleep(10000);
+                        Thread.Sleep(1000);
                     }
 
                 }, ct);
@@ -95,7 +95,7 @@ namespace Servicios.Impl
                 repositorio.Agregar<CampoDeEntrenamiento>(new CampoDeEntrenamiento {
                     Nombre = "C",
                     Edificio = repositorio.Obtener<Edificio>(1),
-                    UnidadesEnCola = new List<UnidadPendiente>() { new UnidadPendiente { TiempoRestante = new TimeSpan(10), Unidad = new Unidad {Cantidad = 10 , Especializacion = Especializacion.Mercenario } } }
+                    UnidadesPendientes = new List<UnidadPendiente>() { new UnidadPendiente { TiempoRestante = new TimeSpan(10), Unidad = new Unidad {Cantidad = 10 , Especializacion = Especializacion.Mercenario } } }
                 
                 });
                 repositorio.GuardarCambios();

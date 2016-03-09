@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Dominio.Entidades;
+using System.Runtime.CompilerServices;
 
 namespace Repositorio
 {
@@ -45,6 +46,8 @@ namespace Repositorio
             var metodo = modelBuilder.GetType().GetMethod("Entity");
             foreach (var tipoEntidad in tiposEntidades)
             {
+                if (tipoEntidad.IsDefined(typeof(CompilerGeneratedAttribute), false)) continue;
+
                 metodo.MakeGenericMethod(tipoEntidad).Invoke(modelBuilder, null);
             }
         }

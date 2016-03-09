@@ -4,18 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Dominio.Enum;
 using System;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dominio.Entidades
 {
-    //[Table("Edificio")]
-    public class Edificio : ObjetoEjecutable
+    public class Edificio : IIdentificable
     {
+        [Key]
+        public virtual int Id { get; set; }
+        public virtual string Nombre { get; set; }
         public virtual Usuario Usuario { get; set; }
-        [InverseProperty("Edificio")]
+
+        //[InverseProperty("Edificio")]
         public virtual ICollection<Habitacion> Habitaciones { get; set; }
 
-        [InverseProperty("Edificio")]
-        public virtual ICollection<Unidad> Unidades { get; set; }
+        private ICollection<Unidad> _unidades;
+        //[InverseProperty("Edificio")]
+        public virtual ICollection<Unidad> Unidades { get { return _unidades ?? (_unidades = new List<Unidad>()); }  }
 
         public void Depositar(Material material, int v)
         {
@@ -39,12 +44,8 @@ namespace Dominio.Entidades
             else
             {
                 unidadLocal.Cantidad += unidad.Cantidad;
+                
             }
-        }
-
-        public override void Ejecutar() {
-            var a = 1;
-
         }
     }
 }

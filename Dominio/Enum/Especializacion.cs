@@ -4,6 +4,6 @@ namespace Dominio.Enum
 {
     public enum Especializacion
     {
-        Mercenario
+        Mercenario,
     }
 }

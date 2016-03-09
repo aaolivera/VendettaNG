@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Entidades
 {
-    //[Table("Habitacion")]
     public abstract class Habitacion : ObjetoEjecutable
     {
         public virtual Edificio Edificio { get; set; }

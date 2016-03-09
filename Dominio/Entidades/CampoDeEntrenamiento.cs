@@ -9,7 +9,8 @@ namespace Dominio.Entidades
 {
     public class CampoDeEntrenamiento : Habitacion
     {
-        public virtual ICollection<UnidadPendiente> UnidadesEnCola { get; set; }
+        [InverseProperty("CampoDeEntrenamiento")]
+        public virtual ICollection<UnidadPendiente> UnidadesPendientes { get; set; }
        
         public override bool Depositar(Material material, int v)
         {
@@ -17,7 +18,7 @@ namespace Dominio.Entidades
         }
 
         public override void Ejecutar() {
-            var primero = UnidadesEnCola.FirstOrDefault();
+            var primero = UnidadesPendientes.FirstOrDefault();
             if(primero?.TiempoRestante.Ticks > 0)
             {
                 primero.TiempoRestante = primero.TiempoRestante.Subtract(new TimeSpan(1));
@@ -25,7 +26,7 @@ namespace Dominio.Entidades
             else if (primero?.TiempoRestante.Ticks == 0)
             {
                 Edificio.ApostarUnidad(primero.Unidad);
-                UnidadesEnCola.Remove(primero);
+                UnidadesPendientes.Remove(primero);
             }
         }
     }

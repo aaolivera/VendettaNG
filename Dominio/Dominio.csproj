@@ -80,7 +80,7 @@
     <Compile Include="Entidades\FabricaDeMunicion.cs" />
     <Compile Include="Entidades\ObjetoEjecutable.cs" />
     <Compile Include="Entidades\UnidadPendiente.cs" />
-    <Compile Include="Enum\Mercenario.cs" />
+    <Compile Include="Enum\Especializacion.cs" />
     <Compile Include="Entidades\Unidad.cs" />
     <Compile Include="Enum\Material.cs" />
     <Compile Include="Entidades\Amistad.cs" />
@@ -88,7 +88,6 @@
     <Compile Include="Entidades\Edificio.cs" />
     <Compile Include="Entidades\Habitacion.cs" />
     <Compile Include="Entidades\Usuario.cs" />
-    <Compile Include="Enum\Categoria.cs" />
     <Compile Include="Enum\TipoMensaje.cs" />
     <Compile Include="Enum\TipoAlerta.cs" />
     <Compile Include="IIdentificable.cs" />
@@ -109,6 +108,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,6 +7,8 @@ namespace Servicios.Models
     public class Mundo
     {
         private static Mundo mundo;
+        private List<ObjetoEjecutable> Objetos { get; set; }
+
         private Mundo(List<ObjetoEjecutable> objetosEjecutables)
         {
             this.Objetos = objetosEjecutables;
@@ -36,6 +38,6 @@ namespace Servicios.Models
             return false;
         }
 
-        private List<ObjetoEjecutable> Objetos { get; set; }
+        
     }
 }
