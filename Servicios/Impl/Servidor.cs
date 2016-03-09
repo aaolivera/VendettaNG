@@ -19,7 +19,6 @@ namespace Servicios.Impl
         private readonly IRepositorio repositorio;
         private readonly IConversor conversor;
         private Mundo mundo;
-        private Dictionary<string, Usuario> Usuarios;
         private readonly ILogger log;
         private CancellationTokenSource ts;
 
@@ -66,22 +65,8 @@ namespace Servicios.Impl
             return true;
         }
 
-        public bool AregarUsuario(int id)
-        {
-            var usuario = repositorio.Obtener<Usuario>(id);
-            if (!Usuarios.ContainsKey(usuario.Nombre))
-            {
-                Usuarios.Add(usuario.Nombre, usuario);
-                mundo.AregarUsuario(repositorio.Obtener<Usuario>(id));
-                return true;
-            }            
-            return false;
-        }
-
         public void Inicializar()
         {
-            if (!Usuarios.ContainsKey("a"))
-            {
                 var u = new Usuario { Nombre = "a" };
                 var e = new Edificio { Nombre = "E", Usuario = u };
                 e.Habitaciones.Add(new FabricaDeMunicion { Nombre = "F", Edificio = e });
@@ -89,8 +74,6 @@ namespace Servicios.Impl
                 e.Habitaciones.Add(new CampoDeEntrenamiento { Nombre = "C", Edificio = e });
 
                 u.Edificios.Add(new Edificio { Nombre = "E", Usuario = u });
-
-                Usuarios.Add("a",u);
                 mundo.AregarUsuario(u);
             }
             //if (!repositorio.Existe<Usuario>(x => x.Id == 1))
@@ -124,6 +107,6 @@ namespace Servicios.Impl
             //    });
             //    repositorio.GuardarCambios();
             //}
-        }
+        
     }
 }

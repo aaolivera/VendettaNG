@@ -11,8 +11,6 @@ namespace Servicios
         bool Start();
         [OperationContract]
         bool Stop();
-        [OperationContract]
-        bool AregarUsuario(int id);
 
         [OperationContract]
         void Inicializar();
