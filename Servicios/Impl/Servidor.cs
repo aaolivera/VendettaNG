@@ -18,7 +18,8 @@ namespace Servicios.Impl
     {
         private readonly IRepositorio repositorio;
         private readonly IConversor conversor;
-        private readonly Mundo mundo;
+        private Mundo mundo;
+        private Dictionary<string, Usuario> Usuarios;
         private readonly ILogger log;
         private CancellationTokenSource ts;
 
@@ -26,9 +27,7 @@ namespace Servicios.Impl
         {
             this.repositorio = repositorio;
             this.conversor = conversor;
-            this.log = log;
-            var objetos = repositorio.Listar<ObjetoEjecutable>().ToList();
-            mundo = Mundo.ObtenerMundo(objetos);
+            this.log = log;           
         }
 
         public bool Start()
@@ -36,6 +35,9 @@ namespace Servicios.Impl
             if(ts == null || ts.IsCancellationRequested) {
                 ts = new CancellationTokenSource();
                 var ct = ts.Token;
+
+                var usuarios = repositorio.Listar<Usuario>().ToList();
+                mundo = Mundo.Obtener(usuarios);
 
                 Task.Run(() => {
                     log.Debug("Iniciando Servidor");
@@ -55,51 +57,73 @@ namespace Servicios.Impl
             }
             return false;
         }
+
         public bool Stop()
         {
             repositorio.GuardarCambios();
+            Mundo.Destruir();
             ts?.Cancel();
             return true;
         }
 
-        public bool AregarObjetoEjecutable(int id)
+        public bool AregarUsuario(int id)
         {
-            return mundo.AregarObjetoEjecutable(repositorio.Obtener<ObjetoEjecutable>(id));
+            var usuario = repositorio.Obtener<Usuario>(id);
+            if (!Usuarios.ContainsKey(usuario.Nombre))
+            {
+                Usuarios.Add(usuario.Nombre, usuario);
+                mundo.AregarUsuario(repositorio.Obtener<Usuario>(id));
+                return true;
+            }            
+            return false;
         }
 
         public void Inicializar()
         {
-            if (!repositorio.Existe<Usuario>(x => x.Id == 1))
+            if (!Usuarios.ContainsKey("a"))
             {
-                repositorio.Agregar<Usuario>(new Usuario { NombreUsuario = "a" });
-                repositorio.GuardarCambios();
-            }
-            if (!repositorio.Existe<Edificio>(x => x.Id == 1))
-            {
-                repositorio.Agregar<Edificio>(new Edificio { Nombre = "E", Usuario = repositorio.Obtener<Usuario>(1) });
-                repositorio.GuardarCambios();
-            }
+                var u = new Usuario { Nombre = "a" };
+                var e = new Edificio { Nombre = "E", Usuario = u };
+                e.Habitaciones.Add(new FabricaDeMunicion { Nombre = "F", Edificio = e });
+                e.Habitaciones.Add(new DepositoDeMunicion { Nombre = "D", Edificio = e });
+                e.Habitaciones.Add(new CampoDeEntrenamiento { Nombre = "C", Edificio = e });
 
-            if (!repositorio.Existe<FabricaDeMunicion>(x => x.Id == 2))
-            {
-                repositorio.Agregar<FabricaDeMunicion>(new FabricaDeMunicion { Nombre = "F", Edificio = repositorio.Obtener<Edificio>(1) });
-                repositorio.GuardarCambios();
+                u.Edificios.Add(new Edificio { Nombre = "E", Usuario = u });
+
+                Usuarios.Add("a",u);
+                mundo.AregarUsuario(u);
             }
-            if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 3))
-            {
-                repositorio.Agregar<DepositoDeMunicion>(new DepositoDeMunicion { Nombre = "D",Capacidad = 10000, Edificio = repositorio.Obtener<Edificio>(1) });
-                repositorio.GuardarCambios();
-            }
-            if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 4))
-            {
-                repositorio.Agregar<CampoDeEntrenamiento>(new CampoDeEntrenamiento {
-                    Nombre = "C",
-                    Edificio = repositorio.Obtener<Edificio>(1),
-                    UnidadesPendientes = new List<UnidadPendiente>() { new UnidadPendiente { TiempoRestante = new TimeSpan(10), Unidad = new Unidad {Cantidad = 10 , Especializacion = Especializacion.Mercenario } } }
+            //if (!repositorio.Existe<Usuario>(x => x.Id == 1))
+            //{
+            //    repositorio.Agregar<Usuario>(new Usuario { Nombre = "a" });
+            //    repositorio.GuardarCambios();
+            //}
+            //if (!repositorio.Existe<Edificio>(x => x.Id == 1))
+            //{
+            //    repositorio.Agregar<Edificio>(new Edificio { Nombre = "E", Usuario = repositorio.Obtener<Usuario>(1) });
+            //    repositorio.GuardarCambios();
+            //}
+
+            //if (!repositorio.Existe<FabricaDeMunicion>(x => x.Id == 2))
+            //{
+            //    repositorio.Agregar<FabricaDeMunicion>(new FabricaDeMunicion { Nombre = "F", Edificio = repositorio.Obtener<Edificio>(1) });
+            //    repositorio.GuardarCambios();
+            //}
+            //if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 3))
+            //{
+            //    repositorio.Agregar<DepositoDeMunicion>(new DepositoDeMunicion { Nombre = "D",Capacidad = 10000, Edificio = repositorio.Obtener<Edificio>(1) });
+            //    repositorio.GuardarCambios();
+            //}
+            //if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 4))
+            //{
+            //    repositorio.Agregar<CampoDeEntrenamiento>(new CampoDeEntrenamiento {
+            //        Nombre = "C",
+            //        Edificio = repositorio.Obtener<Edificio>(1),
+            //        UnidadesPendientes = new List<UnidadPendiente>() { new UnidadPendiente { TiempoRestante = new TimeSpan(10), Unidad = new Unidad {Cantidad = 10 , Especializacion = Especializacion.Mercenario } } }
                 
-                });
-                repositorio.GuardarCambios();
-            }
+            //    });
+            //    repositorio.GuardarCambios();
+            //}
         }
     }
 }

@@ -33,9 +33,8 @@ namespace Servicios.Impl
 
         public UsuarioDto ObtenerUsuario(string name)
         {
-            return Obtener<Usuario, UsuarioDto>(x => x.NombreUsuario == name);
+            return Obtener<Usuario, UsuarioDto>(x => x.Nombre == name);
         }
-
 
         private ListaPaginada<TDto> Listar<TEntidad, TDto>(Expression<Func<TEntidad, bool>> expresionFiltro, Paginacion paginacion) where TEntidad : class
         {

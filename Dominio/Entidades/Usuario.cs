@@ -1,19 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dominio.Entidades
 {
-    public class Usuario : IIdentificable
+    public class Usuario : ObjetoEjecutable
     {
-        [Key]
-        public virtual int Id { get; set; }
-        public virtual string NombreUsuario { get; set; }
         public virtual string Email { get; set; }
-        [InverseProperty("Usuario")]
-        public virtual ICollection<Edificio> Edificios { get; set; }
-        [InverseProperty("Usuario")]
+
+        private ICollection<Edificio> _edificios;
+        public virtual ICollection<Edificio> Edificios { get { return _edificios ?? (_edificios = new List<Edificio>()); } }
+
         public virtual ICollection<Amistad> Amigos { get; set; }
+
         public virtual Familia Familia { get; set; }
+
+        public override void Ejecutar()
+        {
+            foreach (var i in Edificios)
+            {
+                i.Ejecutar();
+            }
+        }
     }
 }

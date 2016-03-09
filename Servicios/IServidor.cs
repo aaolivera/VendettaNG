@@ -12,7 +12,7 @@ namespace Servicios
         [OperationContract]
         bool Stop();
         [OperationContract]
-        bool AregarObjetoEjecutable(int id);
+        bool AregarUsuario(int id);
 
         [OperationContract]
         void Inicializar();

@@ -8,18 +8,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dominio.Entidades
 {
-    public class Edificio : IIdentificable
+    public class Edificio : ObjetoEjecutable
     {
-        [Key]
-        public virtual int Id { get; set; }
-        public virtual string Nombre { get; set; }
         public virtual Usuario Usuario { get; set; }
 
-        //[InverseProperty("Edificio")]
         public virtual ICollection<Habitacion> Habitaciones { get; set; }
 
         private ICollection<Unidad> _unidades;
-        //[InverseProperty("Edificio")]
         public virtual ICollection<Unidad> Unidades { get { return _unidades ?? (_unidades = new List<Unidad>()); }  }
 
         public void Depositar(Material material, int v)
@@ -45,6 +40,13 @@ namespace Dominio.Entidades
             {
                 unidadLocal.Cantidad += unidad.Cantidad;
                 
+            }
+        }
+
+        public override void Ejecutar()
+        {
+            foreach(var i in Habitaciones){
+                i.Ejecutar();
             }
         }
     }

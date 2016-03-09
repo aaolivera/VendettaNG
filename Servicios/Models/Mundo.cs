@@ -7,14 +7,14 @@ namespace Servicios.Models
     public class Mundo
     {
         private static Mundo mundo;
-        private List<ObjetoEjecutable> Objetos { get; set; }
+        private Dictionary<string, Usuario> Objetos { get; set; }
 
-        private Mundo(List<ObjetoEjecutable> objetosEjecutables)
+        private Mundo(List<Usuario> objetosEjecutables)
         {
-            this.Objetos = objetosEjecutables;
+            this.Objetos = objetosEjecutables.ToDictionary(x => x.Nombre, x => x);
         }
 
-        public static Mundo ObtenerMundo(List<ObjetoEjecutable> objetosEjecutables)
+        public static Mundo Obtener(List<Usuario> objetosEjecutables)
         {
             if (mundo == null)
             {
@@ -23,16 +23,24 @@ namespace Servicios.Models
             return mundo;
         }
 
-        public void Ejecutar()
+        public static void Destruir()
         {
-            Objetos.ForEach(x => x.Ejecutar());
+            mundo = null;
         }
 
-        public bool AregarObjetoEjecutable(ObjetoEjecutable objetosEjecutable)
+        public void Ejecutar()
         {
-            if(!Objetos.Any(x => x.Id == objetosEjecutable?.Id))
+            foreach(var i in Objetos.Values)
             {
-                Objetos.Add(objetosEjecutable);
+                i.Ejecutar();
+            }
+        }
+
+        public bool AregarUsuario(Usuario objeto)
+        {
+            if(!Objetos.ContainsKey(objeto?.Nombre))
+            {
+                Objetos.Add(objeto.Nombre, objeto);
                 return true;
             }
             return false;
