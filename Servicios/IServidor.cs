@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using Dominio.Dto;
+using Dominio.Comandos;
 
 namespace Servicios
 {
@@ -14,5 +15,8 @@ namespace Servicios
 
         [OperationContract]
         void Inicializar();
+
+        [OperationContract]
+        Resultado EjecutarComando(Comando comando);
     }
 }

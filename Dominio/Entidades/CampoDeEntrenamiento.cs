@@ -9,16 +9,14 @@ namespace Dominio.Entidades
 {
     public class CampoDeEntrenamiento : Habitacion
     {
-        [InverseProperty("CampoDeEntrenamiento")]
-        public virtual ICollection<UnidadPendiente> UnidadesPendientes { get; set; }
-       
+        
         public override bool Depositar(Material material, int v)
         {
             return false;
         }
 
         public override void Ejecutar() {
-            var primero = UnidadesPendientes.FirstOrDefault();
+            var primero = Edificio.UnidadesPendientes.FirstOrDefault();
             if(primero?.TiempoRestante.Ticks > 0)
             {
                 primero.TiempoRestante = primero.TiempoRestante.Subtract(new TimeSpan(1));
@@ -26,7 +24,7 @@ namespace Dominio.Entidades
             else if (primero?.TiempoRestante.Ticks == 0)
             {
                 Edificio.ApostarUnidad(primero.Unidad);
-                UnidadesPendientes.Remove(primero);
+                Edificio.UnidadesPendientes.Remove(primero);
             }
         }
     }

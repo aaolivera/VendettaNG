@@ -14,12 +14,17 @@ namespace Servicios.Models
             this.Objetos = objetosEjecutables.ToDictionary(x => x.Nombre, x => x);
         }
 
-        public static Mundo Obtener(List<Usuario> objetosEjecutables)
+        public static Mundo Crear(List<Usuario> objetosEjecutables)
         {
             if (mundo == null)
             {
-                mundo = new Mundo(objetosEjecutables);                
+                mundo = new Mundo(objetosEjecutables);
             }
+            return mundo;
+        }
+
+        public static Mundo Obtener()
+        {
             return mundo;
         }
 
@@ -45,7 +50,10 @@ namespace Servicios.Models
             }
             return false;
         }
+        public Usuario ObtenerUsuario(string nombre)
+        {
+            return Objetos?[nombre];
+        }
 
-        
     }
 }

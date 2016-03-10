@@ -23,7 +23,6 @@ namespace Servicios.Impl
             var tipoProcesador = procesadores[comando.GetType()];
             var procesador = (IProcesadorComando)kernel.Get(tipoProcesador);
             return procesador.Ejecutar(comando);
-            //return new Resultado();
         }
 
         private void RegistrarProcesadores()
@@ -43,12 +42,12 @@ namespace Servicios.Impl
         {
             try
             {
-                return typeof(IProcesadorComando<>)
+                return typeof(IProcesadorComandoDeServidor<>)
                     .Assembly
                     .GetExportedTypes()
                     .Single(
                         x => !x.IsAbstract && x.GetInterfaces().Any(i => i.IsGenericType
-                                                        && i.GetGenericTypeDefinition() == typeof(IProcesadorComando<>)
+                                                        && i.GetGenericTypeDefinition() == typeof(IProcesadorComandoDeServidor<>)
                                                         && i.GetGenericArguments().Single() == comando));
             }
             catch (InvalidOperationException e)

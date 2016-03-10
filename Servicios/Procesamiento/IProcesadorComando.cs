@@ -1,4 +1,5 @@
 ﻿using Dominio.Comandos;
+using Servicios.Models;
 
 namespace Servicios.Procesamiento
 {
@@ -11,5 +12,10 @@ namespace Servicios.Procesamiento
     {
         Resultado Ejecutar(TComando comando);
     }
-    
+
+    public interface IProcesadorComandoDeServidor<in TComando> : IProcesadorComando
+    {
+        Resultado Ejecutar(TComando comando, Mundo mundo);
+    }
+
 }

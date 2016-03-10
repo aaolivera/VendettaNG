@@ -9,7 +9,7 @@ namespace Dominio.Entidades
 {
     public class DepositoDeMunicion : Habitacion
     {
-        public int Capacidad { get; set; }
+        public int Capacidad { get; set; } = 150000;
         public int CantidadAlmacenada { get; set; }
 
         public override bool Depositar(Material material, int v)

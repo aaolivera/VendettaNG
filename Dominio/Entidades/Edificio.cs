@@ -12,10 +12,15 @@ namespace Dominio.Entidades
     {
         public virtual Usuario Usuario { get; set; }
 
-        public virtual ICollection<Habitacion> Habitaciones { get; set; }
+        private ICollection<Habitacion> _habitaciones;
+        public virtual ICollection<Habitacion> Habitaciones { get { return _habitaciones ?? (_habitaciones = new List<Habitacion>()); } }
 
         private ICollection<Unidad> _unidades;
         public virtual ICollection<Unidad> Unidades { get { return _unidades ?? (_unidades = new List<Unidad>()); }  }
+
+        private ICollection<UnidadPendiente> _unidadesPendientes;
+        public virtual ICollection<UnidadPendiente> UnidadesPendientes { get { return _unidadesPendientes ?? (_unidadesPendientes = new List<UnidadPendiente>()); } }
+
 
         public void Depositar(Material material, int v)
         {

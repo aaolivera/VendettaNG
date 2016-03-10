@@ -9,7 +9,7 @@ namespace Dominio.Entidades
     {
         [Key]
         public virtual int Id { get; set; }
-        public virtual CampoDeEntrenamiento CampoDeEntrenamiento { get; set; }
+        public virtual Edificio Edificio { get; set; }
         public virtual Unidad Unidad { get; set; }
         public virtual TimeSpan TiempoRestante { get; set; }
     }

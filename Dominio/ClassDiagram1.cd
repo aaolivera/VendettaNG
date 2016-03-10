@@ -25,10 +25,9 @@
   <Class Name="Dominio.Entidades.Edificio" Collapsed="true">
     <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAgAABIAAAUAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAEAAAAAAAAABAAAABIAAAUAAAAAAEAAAAAAA=</HashCode>
       <FileName>Entidades\Edificio.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Dominio.Entidades.FabricaDeMunicion" Collapsed="true">
     <Position X="7" Y="3.25" Width="1.5" />
@@ -79,10 +78,9 @@
   <Class Name="Dominio.Entidades.Usuario" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="15.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAQAAAAIAIAEAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAABEAAAAAAAAQAAAAAAIAEAAAAA=</HashCode>
       <FileName>Entidades\Usuario.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Interface Name="Dominio.IIdentificable" Collapsed="true">
     <Position X="18.75" Y="3.25" Width="1.5" />

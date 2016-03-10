@@ -10,6 +10,7 @@ using System.ServiceModel;
 using System.Collections.Generic;
 using System;
 using Dominio.Enum;
+using Dominio.Comandos;
 
 namespace Servicios.Impl
 {
@@ -18,14 +19,16 @@ namespace Servicios.Impl
     {
         private readonly IRepositorio repositorio;
         private readonly IConversor conversor;
+        private readonly IServicioComandos servicioComandos;
         private Mundo mundo;
         private readonly ILogger log;
         private CancellationTokenSource ts;
 
-        public Servidor(IRepositorio repositorio, IConversor conversor, ILogger log)
+        public Servidor(IRepositorio repositorio, IServicioComandos servicioComandos, IConversor conversor, ILogger log)
         {
             this.repositorio = repositorio;
             this.conversor = conversor;
+            this.servicioComandos = servicioComandos;
             this.log = log;           
         }
 
@@ -36,7 +39,7 @@ namespace Servicios.Impl
                 var ct = ts.Token;
 
                 var usuarios = repositorio.Listar<Usuario>().ToList();
-                mundo = Mundo.Obtener(usuarios);
+                mundo = Mundo.Crear(usuarios);
 
                 Task.Run(() => {
                     log.Debug("Iniciando Servidor");
@@ -65,6 +68,11 @@ namespace Servicios.Impl
             return true;
         }
 
+        public Resultado EjecutarComando(Comando comando)
+        {
+            return servicioComandos.Ejecutar(comando);
+        }
+
         public void Inicializar()
         {
                 var u = new Usuario { Nombre = "a" };
@@ -72,8 +80,8 @@ namespace Servicios.Impl
                 e.Habitaciones.Add(new FabricaDeMunicion { Nombre = "F", Edificio = e });
                 e.Habitaciones.Add(new DepositoDeMunicion { Nombre = "D", Edificio = e });
                 e.Habitaciones.Add(new CampoDeEntrenamiento { Nombre = "C", Edificio = e });
-
-                u.Edificios.Add(new Edificio { Nombre = "E", Usuario = u });
+                u.Edificios.Add(e);
+            repositorio.Agregar<Usuario>(u);
                 mundo.AregarUsuario(u);
             }
             //if (!repositorio.Existe<Usuario>(x => x.Id == 1))

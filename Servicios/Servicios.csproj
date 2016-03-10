@@ -80,9 +80,10 @@
     <Compile Include="IServicioComandos.cs" />
     <Compile Include="IServidor.cs" />
     <Compile Include="IServicioRepositorio.cs" />
-    <Compile Include="Models\Mundo.cs" />
     <Compile Include="Procesamiento\IProcesadorComando.cs" />
+    <Compile Include="Procesamiento\ProcesadorComandoDeServidor.cs" />
     <Compile Include="Procesamiento\ProcesadorComando.cs" />
+    <Compile Include="Procesamiento\ProcesadorCrearUnidad.cs" />
     <Compile Include="Procesamiento\ProcesadorCrear.cs" />
     <Compile Include="Procesamiento\ProcesadorEliminar.cs" />
     <Compile Include="Procesamiento\ProcesadorModificar.cs" />
