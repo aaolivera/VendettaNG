@@ -84,37 +84,6 @@ namespace Servicios.Impl
             repositorio.Agregar<Usuario>(u);
                 mundo.AregarUsuario(u);
             }
-            //if (!repositorio.Existe<Usuario>(x => x.Id == 1))
-            //{
-            //    repositorio.Agregar<Usuario>(new Usuario { Nombre = "a" });
-            //    repositorio.GuardarCambios();
-            //}
-            //if (!repositorio.Existe<Edificio>(x => x.Id == 1))
-            //{
-            //    repositorio.Agregar<Edificio>(new Edificio { Nombre = "E", Usuario = repositorio.Obtener<Usuario>(1) });
-            //    repositorio.GuardarCambios();
-            //}
-
-            //if (!repositorio.Existe<FabricaDeMunicion>(x => x.Id == 2))
-            //{
-            //    repositorio.Agregar<FabricaDeMunicion>(new FabricaDeMunicion { Nombre = "F", Edificio = repositorio.Obtener<Edificio>(1) });
-            //    repositorio.GuardarCambios();
-            //}
-            //if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 3))
-            //{
-            //    repositorio.Agregar<DepositoDeMunicion>(new DepositoDeMunicion { Nombre = "D",Capacidad = 10000, Edificio = repositorio.Obtener<Edificio>(1) });
-            //    repositorio.GuardarCambios();
-            //}
-            //if (!repositorio.Existe<DepositoDeMunicion>(x => x.Id == 4))
-            //{
-            //    repositorio.Agregar<CampoDeEntrenamiento>(new CampoDeEntrenamiento {
-            //        Nombre = "C",
-            //        Edificio = repositorio.Obtener<Edificio>(1),
-            //        UnidadesPendientes = new List<UnidadPendiente>() { new UnidadPendiente { TiempoRestante = new TimeSpan(10), Unidad = new Unidad {Cantidad = 10 , Especializacion = Especializacion.Mercenario } } }
-                
-            //    });
-            //    repositorio.GuardarCambios();
-            //}
         
     }
 }

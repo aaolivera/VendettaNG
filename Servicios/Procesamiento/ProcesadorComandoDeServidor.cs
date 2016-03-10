@@ -1,7 +1,9 @@
-﻿using Dominio.Comandos;
+﻿using System;
+using Dominio.Comandos;
 using Repositorio;
 using Servicios.Conversiones;
 using Servicios.Models;
+using System.Linq;
 
 namespace Servicios.Procesamiento
 {
@@ -18,10 +20,21 @@ namespace Servicios.Procesamiento
 
         public Resultado Ejecutar(Comando comando)
         {
-            return Ejecutar((TComando) comando, Mundo.Obtener());
+            var resultado = new Resultado();
+
+            ValidarCostos((TComando)comando, Mundo.Obtener(), resultado);
+            if (!resultado.HayErrores)
+            {
+                Ejecutar((TComando)comando, Mundo.Obtener());
+            }
+            return resultado;
         }
 
-        public abstract Resultado Ejecutar(TComando comando, Mundo mundo);
+        public abstract void Ejecutar(TComando comando, Mundo mundo);
 
+        public bool ValidarCostos(TComando comando, Mundo mundo, Resultado resultado)
+        {
+            return true;
+        }
     }
 }

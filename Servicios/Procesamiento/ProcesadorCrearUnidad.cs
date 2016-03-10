@@ -15,23 +15,20 @@ namespace Servicios.Procesamiento
         {
         }
 
-        public override Resultado Ejecutar(CrearUnidad comando, Mundo mundo)
+        public override void Ejecutar(CrearUnidad comando, Mundo mundo)
         {
-            var resultado = new ResultadoCrear();
-
             var usuario = mundo.ObtenerUsuario(comando.NombreUsuario);
             var edificio = usuario.Edificios.FirstOrDefault(x => x.Nombre == comando.EdificioNombre);
+
             edificio?.UnidadesPendientes.Add(
-                
                 new UnidadPendiente {
-                    TiempoRestante = new System.TimeSpan(10),
+                    TiempoRestante = new System.TimeSpan(10 * comando.Cantidad),
                     Unidad = new  Unidad
                     {
-                        Cantidad=10,
-                        Especializacion= Especializacion.Mercenario
+                        Cantidad= comando.Cantidad,
+                        Especializacion= comando.Especializacion
                     }
-                    });
-            return resultado;
+                });
         }
     }
 }

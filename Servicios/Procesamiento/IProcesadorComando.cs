@@ -15,7 +15,7 @@ namespace Servicios.Procesamiento
 
     public interface IProcesadorComandoDeServidor<in TComando> : IProcesadorComando
     {
-        Resultado Ejecutar(TComando comando, Mundo mundo);
+        void Ejecutar(TComando comando, Mundo mundo);
     }
 
 }
