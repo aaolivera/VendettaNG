@@ -81,8 +81,11 @@ namespace Servicios.Impl
                 e.Habitaciones.Add(new DepositoDeMunicion { Nombre = "D", Edificio = e });
                 e.Habitaciones.Add(new CampoDeEntrenamiento { Nombre = "C", Edificio = e });
                 u.Edificios.Add(e);
-            repositorio.Agregar<Usuario>(u);
-                mundo.AregarUsuario(u);
+
+                if (mundo.AregarUsuario(u)) {
+                    repositorio.Agregar<Usuario>(u);
+                }
+            
             }
         
     }

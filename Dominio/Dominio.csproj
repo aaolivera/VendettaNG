@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comandos\CrearHabitacion.cs" />
     <Compile Include="Comandos\CrearUnidad.cs" />
     <Compile Include="Comandos\Comando.cs" />
     <Compile Include="Comandos\Resultado.cs" />
@@ -76,10 +77,12 @@
     <Compile Include="Dto\MensajeDto.cs" />
     <Compile Include="Dto\EdificioDto.cs" />
     <Compile Include="Dto\UsuarioDto.cs" />
+    <Compile Include="Entidades\OficinaDelJefe.cs" />
     <Compile Include="Entidades\DepositoDeMunicion.cs" />
     <Compile Include="Entidades\CampoDeEntrenamiento.cs" />
     <Compile Include="Entidades\FabricaDeMunicion.cs" />
     <Compile Include="Entidades\ObjetoEjecutable.cs" />
+    <Compile Include="Entidades\HabitacionPendiente.cs" />
     <Compile Include="Entidades\UnidadPendiente.cs" />
     <Compile Include="Enum\Especializacion.cs" />
     <Compile Include="Entidades\Unidad.cs" />
@@ -92,6 +95,8 @@
     <Compile Include="Enum\TipoMensaje.cs" />
     <Compile Include="Enum\TipoAlerta.cs" />
     <Compile Include="IIdentificable.cs" />
+    <Compile Include="Models\Factorys\IFactoryHabitacion.cs" />
+    <Compile Include="Models\Factorys\FactorysHabitacion.cs" />
     <Compile Include="Models\Mundo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recursos\Textos1.Designer.cs">

@@ -21,6 +21,8 @@ namespace Dominio.Entidades
         private ICollection<UnidadPendiente> _unidadesPendientes;
         public virtual ICollection<UnidadPendiente> UnidadesPendientes { get { return _unidadesPendientes ?? (_unidadesPendientes = new List<UnidadPendiente>()); } }
 
+        private ICollection<HabitacionPendiente> _habitacionesPendientes;
+        public virtual ICollection<HabitacionPendiente> HabitacionesPendientes { get { return _habitacionesPendientes ?? (_habitacionesPendientes = new List<HabitacionPendiente>()); } }
 
         public void Depositar(Material material, int v)
         {
@@ -28,24 +30,27 @@ namespace Dominio.Entidades
             {
                 if(i.Depositar(material, v))
                 {
-                    break;
+                    return;
                 }
             }
         }
 
         public void ApostarUnidad(Unidad unidad)
         {
-            var unidadLocal = Unidades.FirstOrDefault(x => x.Especializacion == unidad.Especializacion);
-            if(unidadLocal == null)
+            foreach (var i in Unidades)
             {
-                unidad.Edificio = this;
-                Unidades.Add(unidad);
+                if (i.Apostar(unidad)) return;
             }
-            else
+            Unidades.Add(unidad);
+        }
+
+        public void MejorarHabitacion(Habitacion habitacion)
+        {
+            foreach(var i in Habitaciones)
             {
-                unidadLocal.Cantidad += unidad.Cantidad;
-                
+                if (i.Mejorar(habitacion)) return;
             }
+            Habitaciones.Add(habitacion);
         }
 
         public override void Ejecutar()

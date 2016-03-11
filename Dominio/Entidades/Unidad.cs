@@ -13,5 +13,14 @@ namespace Dominio.Entidades
         public virtual Especializacion Especializacion { get; set; }
         public virtual Edificio Edificio { get; set; }
 
+        public bool Apostar(Unidad unidad)
+        {
+            if (Especializacion == unidad.Especializacion)
+            {
+                Cantidad+= unidad.Cantidad;
+                return true;
+            }
+            return false;
+        }
     }
 }

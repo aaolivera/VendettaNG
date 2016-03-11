@@ -83,6 +83,7 @@
     <Compile Include="Procesamiento\IProcesadorComando.cs" />
     <Compile Include="Procesamiento\ProcesadorComandoDeServidor.cs" />
     <Compile Include="Procesamiento\ProcesadorComando.cs" />
+    <Compile Include="Procesamiento\ProcesadorCrearHabitacion.cs" />
     <Compile Include="Procesamiento\ProcesadorCrearUnidad.cs" />
     <Compile Include="Procesamiento\ProcesadorCrear.cs" />
     <Compile Include="Procesamiento\ProcesadorEliminar.cs" />
